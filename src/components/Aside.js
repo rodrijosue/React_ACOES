@@ -28,7 +28,7 @@ export default function Aside() {
           <a href="#" className="nav-link">
             <i className="nav-icon fas fa-users" />
             <p>
-              Personas
+              Persona
               <i className="right fas fa-angle-left" />
             </p>
           </a>
