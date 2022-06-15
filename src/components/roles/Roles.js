@@ -1,10 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../css/Roles.css"
-import ModalRoles from "./ModalRoles.js";
+import "../../css/Roles.css"
+import ModalRoles from "../../components/roles/ModalRoles";
 import useModal from "../../hooks/useModal.js";
-import ModalRolesU from "./ModalRolesU";
+import ModalRolesU from "./ModalRolesU.js";
 import axios from "axios";
 import { useState, useEffect } from "react";
+
 
 
 //Importacion del servidor
