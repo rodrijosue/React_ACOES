@@ -6,11 +6,16 @@ import { useNavigate } from 'react-router-dom'
 
 
 //Importacion del servidor
-const URI = "http://localhost:8000/tbl_ms_roles/";
+const URL_R = "http://localhost:8000/tbl_ms_roles/";
+const URL_P = "http://localhost:8000/TBL_MS_PERMISOS/"
 
 const ModalRoles = ({ isOpen, closeModal}) => {
     const [ROL, setROL] = useState('')
     const [DESCRIPCION, setDESCRIPCION] = useState('')
+    const [PERMISO_INSERCION, setPERMISO_INSERCION] = useState('')
+    const [PERMISO_ELIMINACION, setPERMISO_ELIMINACION] = useState('')
+    const [PERMISO_ACTUALIZACION, setPERMISO_ACTUALIZACION] = useState('')
+    const [PERMISO_CONSULTAR, setPERMISO_CONSULTAR] = useState('')
     const navigate = useNavigate()
     const handleModalDialogClick = (e) => {
         e.stopPropagation();
@@ -18,11 +23,14 @@ const ModalRoles = ({ isOpen, closeModal}) => {
 
     const store = async (e) => {
         e.preventDefault()
-        await axios.post(URI, {ROL: ROL, DESCRIPCION: DESCRIPCION})
+        await axios.post(URL_R, {ROL: ROL, DESCRIPCION: DESCRIPCION})       
+        await axios.post(URL_P, {PERMISO_INSERCION: PERMISO_INSERCION, PERMISO_ELIMINACION: PERMISO_ELIMINACION, PERMISO_ACTUALIZACION:PERMISO_ACTUALIZACION, PERMISO_CONSULTAR:PERMISO_CONSULTAR})
         navigate('/')
     }
-
-
+    
+    //handlecheckbox para medir el estado del checkbox
+    
+    
     return (
 
         <div className={`modal ${isOpen && 'modal-open'}`} onClick={closeModal}>
@@ -71,25 +79,37 @@ const ModalRoles = ({ isOpen, closeModal}) => {
                             <option>Seguridad</option>
                             </select>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue id="flexCheckDefault" />
+                            <input  className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckDefault" 
+                                value={PERMISO_INSERCION}
+                                    onChange={ (e)=> setPERMISO_INSERCION(e.target.checked)}
+                            />
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Insertar Informacion
                             </label>
                             </div>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue id="flexCheckChecked" />
+                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
+                                value={PERMISO_ELIMINACION}
+                                    onChange={ (e)=> setPERMISO_ELIMINACION(e.target.checked)}
+                            />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
                                 Eliminar Informacion
                             </label>
                             </div>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue id="flexCheckChecked" />
+                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
+                                value={PERMISO_ACTUALIZACION}
+                                    onChange={ (e)=> setPERMISO_ACTUALIZACION(e.target.checked)}
+                            />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
                                 Actualizar Informacion
                             </label>
                             </div>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue id="flexCheckChecked" />
+                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
+                                value={PERMISO_CONSULTAR}
+                                    onChange={ (e)=> setPERMISO_CONSULTAR(e.target.checked)}
+                            />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
                                 Consultar Informacion
                             </label>

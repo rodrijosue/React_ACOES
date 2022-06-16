@@ -3,14 +3,22 @@ import '../../css/Modal.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 //Importacion del servidor
-const URI = `http://localhost:8000/tbl_ms_roles/`;
+//URL Roles
+const URL_R = `http://localhost:8000/tbl_ms_roles/`;
+//URL Permisos
+const URL_P = "http://localhost:8000/TBL_MS_PERMISOS/";
 
 const ModalRolesU = ({ isOpen, closeModal, id}) => {
     const [ROL, setROL] = useState('')
     const [DESCRIPCION, setDESCRIPCION] = useState('')
+    const [ID_ROL, setID_ROL] = useState('')
+    const [PERMISO_INSERCION, setPERMISO_INSERCION] = useState('')
+    const [PERMISO_ELIMINACION, setPERMISO_ELIMINACION] = useState('')
+    const [PERMISO_ACTUALIZACION, setPERMISO_ACTUALIZACION] = useState('')
+    const [PERMISO_CONSULTAR, setPERMISO_CONSULTAR] = useState('')
     const navigate = useNavigate()
     
     const handleModalDialogClick = (e) => {
@@ -19,20 +27,27 @@ const ModalRolesU = ({ isOpen, closeModal, id}) => {
 
     const update = async (e) => {
         e.preventDefault()
-        await axios.put(URI+id, {ROL: ROL, DESCRIPCION: DESCRIPCION})
+        await axios.put(URL_R+id, {ROL: ROL, DESCRIPCION: DESCRIPCION})
+        await axios.put(URL_P+id, {PERMISO_INSERCION: PERMISO_INSERCION, PERMISO_ELIMINACION: PERMISO_ELIMINACION, PERMISO_ACTUALIZACION:PERMISO_ACTUALIZACION, PERMISO_CONSULTAR:PERMISO_CONSULTAR})
         navigate('/')
     }
 
     //hook para actualizar
     useEffect( ()=>{
         getRolById()
-    },[])
+    },[id])
 
     //definicion de getRolById para hacer referencia al id del rol a modificar
     const getRolById = async () =>{
-        const res = await axios.get(URI+id)
-        setROL(res.data.ROL)
-        setDESCRIPCION(res.data.DESCRIPCION)
+        const resR = await axios.get(URL_R+id)
+        setID_ROL(resR.data.ID_ROL)
+        setROL(resR.data.ROL)
+        setDESCRIPCION(resR.data.DESCRIPCION)
+        const resP = await axios.get(URL_P+id)
+        setPERMISO_INSERCION(resP.data.PERMISO_INSERCION)
+        setPERMISO_ELIMINACION(resP.data.PERMISO_ELIMINACION)
+        setPERMISO_ACTUALIZACION(resP.data.PERMISO_ACTUALIZACION)
+        setPERMISO_CONSULTAR(resP.data.PERMISO_CONSULTAR)
     }
     return (
         
@@ -49,7 +64,8 @@ const ModalRolesU = ({ isOpen, closeModal, id}) => {
                             <div className="form-group row">
                             <label htmlFor="colFormLabelSm" className="col-lg-2 col-form-label col-form-label-sm">Id Rol</label>
                             <div className="col-sm-10">
-                                <input type="id" className="form-control form-control-sm mb-3" id="colFormLabelSm" 
+                                <input type="id" className="form-control form-control-sm mb-3" id="colFormLabelSm" disabled
+                                value={ID_ROL} 
                                 />
                             </div>
                             </div>
@@ -89,25 +105,37 @@ const ModalRolesU = ({ isOpen, closeModal, id}) => {
                             <option>Seguridad</option>
                             </select>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue id="flexCheckDefault" />
+                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckDefault" 
+                                value={PERMISO_INSERCION}
+                                onChange={ (e)=> setPERMISO_INSERCION(e.target.checked)} 
+                            />
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Insertar Informacion
                             </label>
                             </div>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue id="flexCheckChecked" />
+                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
+                                value={PERMISO_ELIMINACION}
+                                onChange={ (e)=> setPERMISO_ELIMINACION(e.target.checked)} 
+                            />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
                                 Eliminar Informacion
                             </label>
                             </div>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue id="flexCheckChecked" />
+                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
+                                value={PERMISO_ACTUALIZACION}
+                                onChange={ (e)=> setPERMISO_ACTUALIZACION(e.target.checked)}  
+                            />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
                                 Actualizar Informacion
                             </label>
                             </div>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue id="flexCheckChecked" />
+                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
+                                value={PERMISO_CONSULTAR} 
+                                onChange={ (e)=> setPERMISO_CONSULTAR(e.target.checked)} 
+                            />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
                                 Consultar Informacion
                             </label>

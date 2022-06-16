@@ -4,12 +4,14 @@ import cors from 'cors'
 import db from "./database/db.js";
 
 import rolRoutes from './routes/routes.js'
+import permisosRoutes from './routes/PermisosRoutes.js'
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 //use con la tabla ms_roles
 app.use('/tbl_ms_roles', rolRoutes)
+app.use('/TBL_MS_PERMISOS', permisosRoutes)
 
 try {
    await db.authenticate()
