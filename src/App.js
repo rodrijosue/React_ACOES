@@ -6,6 +6,9 @@ import Header from "./components/Header";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Roles from '../src/components/roles/Roles';
 import Bitacora from "./components/bitacora/Bitacora";
+import Preguntas from "./components/preguntas/Preguntas";
+
+
 
 
 function App() {
@@ -14,7 +17,7 @@ function App() {
       
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Bitacora/>}/>
+          <Route path='/' element={<Preguntas/>}/>
         
         </Routes>
       </BrowserRouter>
