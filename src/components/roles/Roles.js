@@ -39,7 +39,7 @@ const Roles = () => {
       <h1>Roles</h1>
       <hr></hr>
       <h4>Lista de roles</h4>
-      <button className="btn btn-success btn-add-rol" onClick={openModalRoles}>
+      <button className="btn btn-success btn-add-rol" onClick={openModalRolesU}>
         Agregar Rol
       </button>
       <div className="container">

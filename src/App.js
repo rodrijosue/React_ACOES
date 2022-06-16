@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Roles from '../src/components/roles/Roles';
+import Bitacora from "./components/bitacora/Bitacora";
 
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
       
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Roles/>}/>
+          <Route path='/' element={<Bitacora/>}/>
+        
         </Routes>
       </BrowserRouter>
     </>
