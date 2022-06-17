@@ -1,15 +1,17 @@
 import React from 'react'
 import '../../css/Modal.css'
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
+
 //Importacion del servidor
 const URL_R = "http://localhost:8000/tbl_ms_roles/";
-const URL_P = "http://localhost:8000/TBL_MS_PERMISOS/"
+const URL_P = "http://localhost:8000/TBL_MS_PERMISOS/";
 
-const ModalRoles = ({ isOpen, closeModal}) => {
+const ModalRoles = () => {
     const [ROL, setROL] = useState('')
     const [DESCRIPCION, setDESCRIPCION] = useState('')
     const [PERMISO_INSERCION, setPERMISO_INSERCION] = useState('')
@@ -33,15 +35,15 @@ const ModalRoles = ({ isOpen, closeModal}) => {
     
     return (
 
-        <div className={`modal ${isOpen && 'modal-open'}`} onClick={closeModal}>
-            <div className="modal-dialog modal-lg"  onClick={handleModalDialogClick}>
+        <div>
+            <div className="container-sm"  onClick={handleModalDialogClick}>
             
                 <form  onSubmit={store}>
-                    <div className="modal-content dimen-modal">
+                    <div className="container">
                         <div className="modal-header">
                         <h5 className="modal-title">Nuevo Rol</h5>
                         </div>
-                        <div className="modal-body">
+                        <div className="">
                         <form>
                             <div className="form-group row">
                             <label htmlFor="colFormLabelSm" className="col-lg-2 col-form-label col-form-label-sm">Rol</label>
@@ -67,62 +69,62 @@ const ModalRoles = ({ isOpen, closeModal}) => {
                             <div className="modal-header">
                             <h5 className="modal-title">Acciones que puede realizar en el modulo</h5>
                             </div>
-                            <h6>Pantalla</h6>
-                            <select id="inputState" className="form-control">
-                            <option selected />
-                            <option>Personas</option>
-                            <option>Planilla</option>
-                            <option>Inventario</option>
-                            <option>Compras</option>
-                            <option>Seguimiento</option>
-                            <option>Reportes</option>
-                            <option>Seguridad</option>
-                            </select>
-                            <div className="form-check">
-                            <input  className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckDefault" 
-                                value={PERMISO_INSERCION}
-                                    onChange={ (e)=> setPERMISO_INSERCION(e.target.checked)}
-                            />
-                            <label className="form-check-label" htmlFor="flexCheckDefault">
-                                Insertar Informacion
-                            </label>
-                            </div>
-                            <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
-                                value={PERMISO_ELIMINACION}
-                                    onChange={ (e)=> setPERMISO_ELIMINACION(e.target.checked)}
-                            />
-                            <label className="form-check-label" htmlFor="flexCheckChecked">
-                                Eliminar Informacion
-                            </label>
-                            </div>
-                            <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
-                                value={PERMISO_ACTUALIZACION}
-                                    onChange={ (e)=> setPERMISO_ACTUALIZACION(e.target.checked)}
-                            />
-                            <label className="form-check-label" htmlFor="flexCheckChecked">
-                                Actualizar Informacion
-                            </label>
-                            </div>
-                            <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
-                                value={PERMISO_CONSULTAR}
-                                    onChange={ (e)=> setPERMISO_CONSULTAR(e.target.checked)}
-                            />
-                            <label className="form-check-label" htmlFor="flexCheckChecked">
-                                Consultar Informacion
-                            </label>
-                            </div>
+                            <table className="table table-striped table-bordered ">
+                                <thead>
+                                    <tr>
+                                        <th>Objeto</th>
+                                        <th>Insertar</th>
+                                        <th>Eliminar</th>
+                                        <th>Actualizar</th>
+                                        <th>Consultar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td> <h6>hola</h6></td>
+                                        <td>
+                                            <div className="form-check">
+                                            <input  className="form-check-input" type="checkbox"  id="flexCheckDefault" 
+                                                checked={PERMISO_INSERCION}
+                                                onChange={ (e)=> setPERMISO_INSERCION(e.target.checked)}
+                                            />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="form-check">
+                                            <input className="form-check-input" type="checkbox"  id="flexCheckChecked" 
+                                                checked={PERMISO_ELIMINACION}
+                                                onChange={ (e)=> setPERMISO_ELIMINACION(e.target.checked)}
+                                            />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="form-check">
+                                            <input className="form-check-input" type="checkbox"  id="flexCheckDefault" 
+                                                checked={PERMISO_ACTUALIZACION}
+                                                onChange={ (e)=> setPERMISO_ACTUALIZACION(e.target.checked)}
+                                            />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="form-check">
+                                            <input className="form-check-input" type="checkbox"  id="flexCheckChecked" 
+                                                checked={PERMISO_CONSULTAR}
+                                                onChange={ (e)=> setPERMISO_CONSULTAR(e.target.checked)}
+                                            />
+                                            
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
                             <button type="button" className="btn btn-success col-4">Guardar</button>
                         </form>
                         </div>
                         <div className="modal-footer">
                         
                         <button type="submit" className="btn btn-success" >Agregar Rol</button>
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={closeModal}>
-                        Cerrar
-                        </button>
                         </div>
                     </div>
                 </form>

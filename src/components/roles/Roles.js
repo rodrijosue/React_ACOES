@@ -5,6 +5,7 @@ import useModal from "../../hooks/useModal.js";
 import ModalRolesU from "./ModalRolesU.js";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -39,9 +40,9 @@ const Roles = () => {
       <h1>Roles</h1>
       <hr></hr>
       <h4>Lista de roles</h4>
-      <button className="btn btn-success btn-add-rol" onClick={openModalRolesU}>
+      <Link to="/CrearRol" className="btn btn-success btn-add-rol" >
         Agregar Rol
-      </button>
+      </Link>
       <div className="container">
         <table className="table table-striped table-bordered table-rol">
           <thead>

@@ -29,12 +29,13 @@ const ModalRolesU = ({ isOpen, closeModal, id}) => {
         e.preventDefault()
         await axios.put(URL_R+id, {ROL: ROL, DESCRIPCION: DESCRIPCION})
         await axios.put(URL_P+id, {PERMISO_INSERCION: PERMISO_INSERCION, PERMISO_ELIMINACION: PERMISO_ELIMINACION, PERMISO_ACTUALIZACION:PERMISO_ACTUALIZACION, PERMISO_CONSULTAR:PERMISO_CONSULTAR})
-        navigate('/')
+        navigate(`/`)
     }
 
     //hook para actualizar
     useEffect( ()=>{
         getRolById()
+        getPermisoById()
     },[id])
 
     //definicion de getRolById para hacer referencia al id del rol a modificar
@@ -43,12 +44,18 @@ const ModalRolesU = ({ isOpen, closeModal, id}) => {
         setID_ROL(resR.data.ID_ROL)
         setROL(resR.data.ROL)
         setDESCRIPCION(resR.data.DESCRIPCION)
+        
+    }
+
+    const getPermisoById = async () =>{
         const resP = await axios.get(URL_P+id)
+        setID_ROL(resP.data.ID_ROL)
         setPERMISO_INSERCION(resP.data.PERMISO_INSERCION)
         setPERMISO_ELIMINACION(resP.data.PERMISO_ELIMINACION)
         setPERMISO_ACTUALIZACION(resP.data.PERMISO_ACTUALIZACION)
         setPERMISO_CONSULTAR(resP.data.PERMISO_CONSULTAR)
     }
+
     return (
         
         <div className={`modal ${isOpen && 'modal-open'}`} onClick={closeModal}>
@@ -105,17 +112,17 @@ const ModalRolesU = ({ isOpen, closeModal, id}) => {
                             <option>Seguridad</option>
                             </select>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckDefault" 
-                                value={PERMISO_INSERCION}
-                                onChange={ (e)=> setPERMISO_INSERCION(e.target.checked)} 
+                            <input className="form-check-input" type="checkbox"  id="flexCheckDefault" 
+                                defaultChecked={PERMISO_INSERCION}
+                                onChange={ (e)=> setPERMISO_INSERCION(e.target.value)} 
                             />
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Insertar Informacion
                             </label>
                             </div>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
-                                value={PERMISO_ELIMINACION}
+                            <input className="form-check-input" type="checkbox"  id="flexCheckChecked" 
+                                defaultChecked={PERMISO_ELIMINACION}
                                 onChange={ (e)=> setPERMISO_ELIMINACION(e.target.checked)} 
                             />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
@@ -123,8 +130,8 @@ const ModalRolesU = ({ isOpen, closeModal, id}) => {
                             </label>
                             </div>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
-                                value={PERMISO_ACTUALIZACION}
+                            <input className="form-check-input" type="checkbox"  id="flexCheckChecked" 
+                                defaultChecked={PERMISO_ACTUALIZACION}
                                 onChange={ (e)=> setPERMISO_ACTUALIZACION(e.target.checked)}  
                             />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
@@ -132,9 +139,9 @@ const ModalRolesU = ({ isOpen, closeModal, id}) => {
                             </label>
                             </div>
                             <div className="form-check">
-                            <input className="form-check-input" type="checkbox" defaultValue="0" id="flexCheckChecked" 
-                                value={PERMISO_CONSULTAR} 
-                                onChange={ (e)=> setPERMISO_CONSULTAR(e.target.checked)} 
+                            <input className="form-check-input" type="checkbox"  id="flexCheckChecked" 
+                                defaultChecked={PERMISO_CONSULTAR} 
+                                onChange={(e)=> setPERMISO_CONSULTAR(e.target.checked)} 
                             />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
                                 Consultar Informacion

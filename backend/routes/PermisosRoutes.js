@@ -5,9 +5,9 @@ const routerPermisos = express.Router()
 
 //Router de tabla permisos
 routerPermisos.get('/', getAllPermisos)
-routerPermisos.get('/:ID_ROL', getPermiso)
+routerPermisos.get('/:ID_OBJETOS', getPermiso)
 routerPermisos.post('/', createPermiso)
-routerPermisos.put('/:ID_ROL', updatePermiso)
-routerPermisos.delete('/:ID_ROL', deletePermiso)
+routerPermisos.put('/:ID_OBJETOS', updatePermiso)
+routerPermisos.delete('/:ID_OBJETOS', deletePermiso)
 
 export default routerPermisos
