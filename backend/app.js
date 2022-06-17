@@ -9,6 +9,7 @@ import rolRoutes from './routes/routes.js'
 import usuario from './routes/usuario.js'
 import login from './routes/login.js'
 
+import permisosRoutes from './routes/PermisosRoutes.js'
 
 const app = express()
 app.use(cors())
@@ -20,6 +21,7 @@ app.use(express.urlencoded({extended:true}))
 app.use('/tbl_ms_roles', rolRoutes)
 app.use('/usuario', usuario)
 app.use('/login', login)
+app.use('/TBL_MS_PERMISOS', permisosRoutes)
 
 try {
    await db.authenticate()
