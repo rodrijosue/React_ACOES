@@ -31,10 +31,7 @@ const Roles = () => {
   
   
 
-  const [isOpenModalRoles, openModalRoles, closeModalRoles] = useModal(false);
-  const [isOpenModalRolesU, openModalRolesU, closeModalRolesU] = useModal(false);
-  const [id, setid] = useState();
-
+  
   return (
     <div>
       <h1>Roles</h1>
@@ -60,7 +57,7 @@ const Roles = () => {
                 <td> {rol.ROL} </td>
                 <td> {rol.DESCRIPCION} </td>
                 <td>
-                <button className='btn btn-warning' onClickCapture={()=>setid(rol.ID_ROL)}  onClick={openModalRolesU}>Editar</button>
+                <Link to={`/EditarRol/${rol.ID_ROL}`} className='btn btn-warning' >Editar</Link>
                   <button
                     type="submit"
                     onClick={() => deleteRol(rol.ID_ROL)}
@@ -75,8 +72,7 @@ const Roles = () => {
         </table>
       </div>
 
-      <ModalRoles isOpen={isOpenModalRoles} closeModal={closeModalRoles}/>
-      <ModalRolesU isOpen={isOpenModalRolesU} closeModal={closeModalRolesU} id={id}/>
+      
     </div>
   );
 };

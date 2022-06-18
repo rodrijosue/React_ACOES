@@ -1,0 +1,9 @@
+POST http://localhost:8000/tbl_ms_roles
+Content-Type: :application/json
+
+{
+    "ROL":"coordinador",
+    "DESCRIPCION":"acceso a seguimiento",
+    "CREADO_POR":"lolo" ,
+    "MODIFICADO_POR":"lolo" 
+}

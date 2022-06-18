@@ -1,4 +1,4 @@
-import ObjetosModel from "../models/ObjetosModels"
+import ObjetosModel from "../models/ObjetosModels.js"
 
 //Metodos para el CRUD
 

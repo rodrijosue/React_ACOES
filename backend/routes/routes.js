@@ -1,8 +1,6 @@
 import  express  from "express";
 import { getAllRoles, getRol, createRol, updateRol, deleteRol} from "../controllers/RolController.js";
 
-
-
 const router = express.Router()
 
 //Router de tabla Roles

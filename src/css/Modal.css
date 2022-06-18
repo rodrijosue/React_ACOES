@@ -1,17 +1,9 @@
-.modal {
-    background-color: rgba(0,0,0, .85);
-    width: center;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    
-}
 
+.container-custom{
+    width: 150vh;
+    margin-top: 3vh;
+    margin-left: 23vh;
+}
 .modal__dialog {
     background: #ddd;
     padding: 10px;
