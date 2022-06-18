@@ -22,7 +22,7 @@ function App() {
     <BrowserRouter>
     <Routes>
 
-      <Route path='/' element={<LoginForm/>}/>
+      <Route path='/' element={<Roles/>}/>
       <Route path='/CrearROl' element={<ModalRoles/>}/>
       <Route path='/EditarRol/:id' element={<ModalRolesU/>}/>
 
