@@ -1,8 +1,10 @@
 import UserModel from "../models/UsersModel.js"
-
+import bcrypt from "bcrypt"
 
 export const login = async(req,res) =>{
     const {email, password} = req.body
+
+    // const passwordCompare = await bcrypt.compare(password, CONTRASENA)
 
     try {
        const user = await UserModel.findOne({where: {CORREO_ELECTRONICO: email, CONTRASENA: password}})
@@ -21,4 +23,4 @@ export const login = async(req,res) =>{
     } catch (error) {
          res.json( {message: error.message})
     } 
- } 
+ }
