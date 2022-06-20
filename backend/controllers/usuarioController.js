@@ -1,5 +1,5 @@
 import UsersModel from "../models/UsersModel.js"
-import bcrypt from "bcrypt"
+import { encrypt } from "../helpers/handleBcypt.js"
 //Metodos para el CRUD
 
 
@@ -52,9 +52,9 @@ export const getUser = async (req,res) => {
                 CREADO_POR,
                 MODIFICADO_POR            
             } = req.body
-            const passwordHash = await bcrypt.hash(CONTRASENA, 10)
+            const passwordHash = await encrypt(CONTRASENA)
                         
-            await UsersModel.create({
+            const registerUser = await UsersModel.create({
                 ID_USUARIO,
                 USUARIO,
                 NOMBRE_USUARIO,
@@ -69,8 +69,8 @@ export const getUser = async (req,res) => {
                 CREADO_POR,
                 MODIFICADO_POR
             })
-            res.json({
-                "message":"Registro creado"
+            res.send({
+                data: registerUser
             })
        } catch (error) {
             res.json( {message: error.message})

@@ -1,25 +1,33 @@
-import UserModel from "../models/UsersModel.js"
-import bcrypt from "bcrypt"
+import bcrypt, { compare } from "bcrypt"
+import UsersModel from "../models/UsersModel.js"
+
 
 export const login = async(req,res) =>{
-    const {email, password} = req.body
-
-    // const passwordCompare = await bcrypt.compare(password, CONTRASENA)
-
     try {
-       const user = await UserModel.findOne({where: {CORREO_ELECTRONICO: email, CONTRASENA: password}})
-         console.log(user)
+        const {email, password} = req.body
 
-         if(user){
+       const user = await UsersModel.findOne({where: {CORREO_ELECTRONICO: email}})
+        console.log(user)
+       
+       if(!user){
+           res.status(404)
+           res.send({error: 'User not found'})
+        }
 
-             res.json({
-                 "message":"Inicio de sesión exitoso"
-             })
-         } else{
-            res.status(400).json({
-                "message":"Email o contraseña invalidos"
-            })
-         }
+        const checkPassword = await bcrypt.compare(password, )
+
+    //     if(checkPassword){
+    //         res.send({
+    //             data: user
+    //         })
+    //         return
+    //     }
+         
+        //  else{
+        //     res.status(400).json({
+        //         "message":"Email o contraseña invalidos"
+        //     })
+        //  }
     } catch (error) {
          res.json( {message: error.message})
     } 
