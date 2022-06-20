@@ -1,7 +1,26 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-export default function Bitacorac() {
+
+const URL_R = "http://localhost:8000/bitacora/";
+
+const Bitacorac = () => {
+  const [bitacora, setBitacora] = useState([]);
+  useEffect(() => {
+    getBitacora();
+  }, []);
+
+  //Procediemitno para mostrar todos los roles
+  const getBitacora = async () => {
+    const res = await axios.get(URL_R);
+    setBitacora(res.data);
+  };
+  
+
+
   return (
     <div className="content-wrapper">
   {/* Content Header (Page header) */}
@@ -34,9 +53,17 @@ export default function Bitacorac() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    
-                  </tr>
+                {bitacora.map((bitacora) => (
+              <tr key={bitacora.ID_BITACORA}>
+                <td>{bitacora.ID_BITACORA}</td>
+                <td>{bitacora.createdAt}</td>
+                <td> {bitacora.ID_USUARIO} </td>
+                <td> {bitacora.ID_OBJETO} </td>
+                <td> {bitacora.ACCION} </td>
+                <td> {bitacora.DESCRIPCION} </td>
+               
+              </tr>
+            ))}
                 </tbody>
                 <tfoot>
                   <tr>
@@ -65,3 +92,4 @@ export default function Bitacorac() {
 
   )
 }
+export default Bitacorac

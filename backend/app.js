@@ -10,6 +10,7 @@ import usuario from './routes/usuario.js'
 import login from './routes/login.js'
 import routerObjetos from './routes/ObjetosRoutes.js'
 import permisosRoutes from './routes/PermisosRoutes.js'
+import bitacoraRoutes from './routes/bitacoraRoutes.js'
 
 const app = express()
 app.use(cors())
@@ -23,6 +24,7 @@ app.use('/usuario', usuario)
 app.use('/login', login)
 app.use('/TBL_MS_PERMISOS', permisosRoutes)
 app.use('/objetos',routerObjetos)
+app.use('/bitacora',bitacoraRoutes)
 try {
    await db.authenticate()
    console.log('Conexion exitosa')
