@@ -1,6 +1,6 @@
 import React from "react";
 
-import LoginForm from "./components/LoginFrom";
+import LoginForm from "./components/LoginForm";
 import Aside from "./components/Aside";
 import Content from "./components/Content";
 import Footer from "./components/Footer";
@@ -22,11 +22,8 @@ function App() {
     <BrowserRouter>
     <Routes>
 
-      <Route path='/' element={<Roles/>}/>
-      <Route path='/CrearROl' element={<ModalRoles/>}/>
-      <Route path='/EditarRol/:id' element={<ModalRolesU/>}/>
+      <Route path='/' element={<LoginForm/>}/>
 
-      <Route path='/' element={<Preguntas/>}/>
     
 
     </Routes>

@@ -1,11 +1,15 @@
 import React from "react"
 import logo from "../logo.jpg"
 import { useState } from "react"
+import AlertError from "./AlertError"
+import axios from "axios"
 
 const LoginForm = () => {
   document.title = "ACOES - Inicio de sesión"
 
+  const [errorMessage, setErrorMessage] = useState("")
   const [body, setBody] = useState({usuario: '', contrasena: ''})
+  
   const inputChange = ({target})=>{
     const {name, value} = target
     setBody({
@@ -15,8 +19,29 @@ const LoginForm = () => {
   }
 
   //enviar los datos
-  const onSubmit = () =>{
-    console.log(body)
+  const onSubmit = e => {
+    //console.log(body)
+    e.preventDefault()
+
+    //validación de formulario
+    const {usuario, contrasena} = body
+    if(usuario ==="" || contrasena ===""){
+      setErrorMessage("Introduce un correo y una contraseña")
+      setTimeout(() => {
+        setErrorMessage("")
+      }, 3000);
+      return;
+    }
+
+    //consumir la api
+    axios.post('http://localhost:8000/api/login', body)
+      .then(({data}) => {
+        console.log(data)
+      })
+      .catch(({response})=>{
+        console.log(response)
+      })
+
   }
 
   return (
@@ -31,6 +56,7 @@ const LoginForm = () => {
 
           <form method="post">
 
+            {errorMessage ? <AlertError message={errorMessage}/> : null}
             <div className="input-group mb-3">
               <input type="email" className="form-control" placeholder="Email" value={body.usuario} onChange={inputChange} name="usuario" required />
               <div className="input-group-append">
