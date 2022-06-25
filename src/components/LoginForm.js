@@ -1,15 +1,16 @@
-import React from "react"
+import React, { useEffect } from "react"
 import logo from "../logo.jpg"
 import { useState } from "react"
 import AlertError from "./AlertError"
-import axios from "axios"
+import axios from "../config/axios"
 
-const LoginForm = () => {
+const LoginForm = ({setisLogged}) => {
   document.title = "ACOES - Inicio de sesión"
 
   const [errorMessage, setErrorMessage] = useState("")
-  const [body, setBody] = useState({usuario: '', contrasena: ''})
-  
+  const [body, setBody] = useState({USER: '', PASSWORD: ''})
+
+  //useState
   const inputChange = ({target})=>{
     const {name, value} = target
     setBody({
@@ -24,8 +25,8 @@ const LoginForm = () => {
     e.preventDefault()
 
     //validación de formulario
-    const {usuario, contrasena} = body
-    if(usuario ==="" || contrasena ===""){
+    const {USER, PASSWORD} = body
+    if(USER ==="" || PASSWORD ===""){
       setErrorMessage("Introduce un correo y una contraseña")
       setTimeout(() => {
         setErrorMessage("")
@@ -33,14 +34,30 @@ const LoginForm = () => {
       return;
     }
 
-    //consumir la api
-    axios.post('http://localhost:8000/api/login', body)
-      .then(({data}) => {
-        console.log(data)
-      })
-      .catch(({response})=>{
-        console.log(response)
-      })
+    //peticion de inicio de sesion
+      axios.post("/login", body)
+       .then(res =>{
+        const {token} = res.data
+        window.localStorage.setItem('UserSession', token)
+        setisLogged(true)
+       })
+       .catch(err =>{
+       })
+
+    // loginService(body)
+    //   .then(data => {
+    //     //local storage
+    //     login(data)
+    //   })
+    //   .catch(err =>{
+    //     const {message} = err.response.data
+    //     setErrorMessage(message)
+    //     document.querySelector('#PASSWORD').value =""
+    //     setTimeout(() => {
+    //       setErrorMessage("")
+    //     }, 3000)
+    //   })
+
 
   }
 
@@ -58,7 +75,7 @@ const LoginForm = () => {
 
             {errorMessage ? <AlertError message={errorMessage}/> : null}
             <div className="input-group mb-3">
-              <input type="email" className="form-control" placeholder="Email" value={body.usuario} onChange={inputChange} name="usuario" required />
+              <input type="email" className="form-control" placeholder="Email" value={body.USER} onChange={inputChange} name="USER" required />
               <div className="input-group-append">
                 <div className="input-group-text">
                   <span className="fas fa-envelope"></span>
@@ -67,7 +84,7 @@ const LoginForm = () => {
             </div>
 
             <div className="input-group mb-3">
-              <input type="password" className="form-control" placeholder="Password" value={body.contrasena} onChange={inputChange} name="contrasena" />
+              <input type="password" className="form-control" placeholder="Password" value={body.PASSWORD} onChange={inputChange} name="PASSWORD" />
               <div className="input-group-append">
                 <div className="input-group-text">
                   <span className="fas fa-lock" />
